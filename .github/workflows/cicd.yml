@@ -1,1 +1,25 @@
+name: Simple CI/CD
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Deploy Spring boot for beginner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+  
+      - name: Hello from build job
+        run: echo "Hello from the Build Job!"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Hello from test job
+         run: echo "Hello from the test Job!"
+  
+     
