@@ -1,33 +1,35 @@
-name: Simple CI/CD
+name: Node.js CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main
+      - "*"
 
 jobs:
   build:
-    name: Build and Deploy Spring boot for beginner
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-  
-      - name: Hello from build job
-        run: echo "Hello from the Build Job!"
 
-  test:
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Docker image
+        run: docker build -t my-node-app:latest .
+
+  unit-test:
     runs-on: ubuntu-latest
     needs: build
     steps:
-       - name: Hello from test job
-         run: echo "Hello from the test Job!"
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run unit tests
+        run: npm test
 
-  deploy:
+  integration-test:
     runs-on: ubuntu-latest
-    needs: test
+    needs: unit-test
     steps:
-       - name: Hello from deploy job
-         run: echo "Hello from the deploy Job!"
-  
-     
+      - name: Integration test (dummy step)
+        run: echo "🔗 Integration tests passed!"
