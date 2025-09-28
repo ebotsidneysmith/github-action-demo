@@ -1,0 +1,30 @@
+name: Conditional Hello
+
+on: [push]
+
+jobs: 
+    job1: 
+        runs-on: ubuntu-latest
+        steps: 
+            - run: echo " hello from job 1!"
+
+    job2: 
+        runs-on: ubuntu-latest
+        needs: job1
+        if: success()
+        steps: 
+            - run: echo " Hello job1 is success"
+    
+    job3: 
+        runs-on: ubuntu-latest
+        needs: job1
+        if: failure()
+        steps: 
+            - run: echo " job 1 is failed"
+    
+    
+    call-hello: 
+        uses: ./.github/workflows/hello.yml
+        needs: job1
+        with: 
+            who: "Main Workflow"
