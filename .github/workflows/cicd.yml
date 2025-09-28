@@ -18,12 +18,14 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: build
     steps:
        - name: Hello from test job
          run: echo "Hello from the test Job!"
 
   deploy:
     runs-on: ubuntu-latest
+    needs: test
     steps:
        - name: Hello from deploy job
          run: echo "Hello from the deploy Job!"
